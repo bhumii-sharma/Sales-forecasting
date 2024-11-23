@@ -17,9 +17,21 @@ class DataValidationConfig:
 
 
 
+<<<<<<< HEAD
+#3
+@dataclass(frozen=True)
+class FeatureExtractionConfig:
+    root_dir: Path
+    data_dir: Path
+    schema: dict
+    STATUS_FILE: str
+
+#5
+=======
 
 
 #3
+>>>>>>> 48179e57f64144fc22a26ebac75be874ecae6cee
 @dataclass(frozen=True)
 class FeatureEngineeringConfig:
     root_dir: Path
@@ -27,7 +39,11 @@ class FeatureEngineeringConfig:
     test_data_path: Path
     STATUS_FILE: str
 
+<<<<<<< HEAD
+#6
+=======
 #4
+>>>>>>> 48179e57f64144fc22a26ebac75be874ecae6cee
 # Changes will be made as per the model is configured
 @dataclass(frozen=True)
 class ModelTrainerConfig:
@@ -43,7 +59,11 @@ class ModelTrainerConfig:
     #alpha: float
     #l1_ratio: float
     #target_column: str
+<<<<<<< HEAD
+#7
+=======
 #5
+>>>>>>> 48179e57f64144fc22a26ebac75be874ecae6cee
 @dataclass(frozen=True)
 class ModelEvaluationConfig:
     root_dir: Path
