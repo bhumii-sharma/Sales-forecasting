@@ -46,7 +46,7 @@ class ConfigurationManager:
         return data_validation_config
 
 
-#5    
+#3    
     def get_feature_engineering_config(self) -> FeatureEngineeringConfig:
         config = self.config.feature_engineering
         create_directories([config.root_dir])
@@ -59,7 +59,7 @@ class ConfigurationManager:
         )
 
         return feature_engineering_config
-#6
+#4
     def get_model_trainer_config(self) -> ModelTrainerConfig :        
         config = self.config.model_trainer
 
@@ -77,7 +77,7 @@ class ConfigurationManager:
 
         return model_trainer_config
     
-#7
+#5
     def get_model_evaluation_config(self) -> ModelEvaluationConfig:
 
         config = self.config.model_evaluation
@@ -100,9 +100,9 @@ class ConfigurationManager:
         return model_evaluation_config
     
 
-#8
+#6
     def get_cross_val_config(self) -> CrossValConfig:
-        config = self.config.nested_cross_val
+        config = self.config.cross_val
         create_directories([config.root_dir])
         create_directories([config.extracted_features, config.random_search_models_rf, config.model_cache_rf])
         create_directories([config.train_data_path, config.test_data_path])
