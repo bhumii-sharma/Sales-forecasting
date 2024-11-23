@@ -25,7 +25,7 @@ cross_val:
   root_dir: artifacts/cross_val
   random_search_models_rf: artifacts/cross_val/random_search_models/random_forest
   model_cache_rf: artifacts/cross_val/model_cache_rf
-  #random_search_models_svm: artifacts/cross_val/random_search_models/svm - If required use
+  #random_search_models_svm: artifacts/gcross_val/random_search_models/svm - If required use
   #model_cache_svm: artifacts/cross_val/model_cache_svm
   train_data_path: artifacts/cross_val/data_for_final_train
   test_data_path: artifacts/cross_val/data_for_final_train
