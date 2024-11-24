@@ -103,4 +103,4 @@ if __name__ == "__main__":
     data_validation_config = config_manager.get_data_validation_config()
 
     data_validation = DataValidation(data_validation_config)
-    data_validation.validate_data()
+    data_validation.validate_data() 
