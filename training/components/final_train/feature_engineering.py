@@ -11,6 +11,7 @@ from sklearn.compose import ColumnTransformer
 from training.exception import FeatureEngineeringError, handle_exception
 from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import FeatureEngineeringConfig
+from training.configuration_manager.configuration import ConfigurationManager
 
 
 class FeatureEngineering:
