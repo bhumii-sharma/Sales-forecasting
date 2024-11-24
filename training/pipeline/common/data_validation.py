@@ -14,14 +14,15 @@ class DataValidationPipeline:
         config = ConfigurationManager()
         data_validation_config = config.get_data_validation_config()
 
-        # Passing the data validation configuration obj to the component
+        # Passing the data validation configuration object to the component
         data_validation = DataValidation(config=data_validation_config)
-        data_validation.check_all_data_is_images()
-            
+        
+        # Use the updated validation method
+        data_validation.validate_data()
 
 
 if __name__ == "__main__":
-    info_logger.info(f">>>>>>>> {PIPELINE} sttarted <<<<<<<<<")
+    info_logger.info(f">>>>>>>> {PIPELINE} started <<<<<<<<<")
     obj = DataValidationPipeline()
     obj.main()
     info_logger.info(f">>>>>>>> {PIPELINE} completed <<<<<<<<<")
