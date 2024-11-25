@@ -1,5 +1,6 @@
 from training.custom_logging import error_logger
 
+
 # Custom exception handler function
 def handle_exception(error, error_type):
     """
@@ -15,7 +16,7 @@ def handle_exception(error, error_type):
     error_logger.error("\n\n")  # To leave a few blank lines
 
     # Print only the formatted message to the console
-    print(f"{error_type._name}: {error.class.name_}: {error}")
+    print(f"{error_type._name}: {error}")
 
 
 
@@ -46,8 +47,21 @@ class ModelEvaluationError(PipelineError):
     pass
 
 
-if _name_ == "_main_":
+
+def my_func(value):
+    # Example function logic
+    if value < 0:
+        raise ValueError("Value cannot be negative")
+    print(f"Value is: {value}")
+
+if __name__ == "__main__":
     try:
-        my_func(23)
+        my_func(23)  # Replace with the value you want to test
     except Exception as e:
         handle_exception(e, DataIngestionError)
+
+# if __name__ == "__main__":
+#     try:
+#         my_func(23)
+#     except Exception as e:
+#         handle_exception(e, DataIngestionError)
