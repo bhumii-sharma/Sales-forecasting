@@ -16,7 +16,7 @@ def handle_exception(error, error_type):
     error_logger.error("\n\n")  # To leave a few blank lines
 
     # Print only the formatted message to the console
-    print(f"{error_type._name}: {error}")
+    print(f"{error_type.__name__}: {error.__class__.__name__}: {error}")
 
 
 
@@ -47,21 +47,9 @@ class ModelEvaluationError(PipelineError):
     pass
 
 
-
-def my_func(value):
-    # Example function logic
-    if value < 0:
-        raise ValueError("Value cannot be negative")
-    print(f"Value is: {value}")
-
 if __name__ == "__main__":
     try:
         my_func(23)  # Replace with the value you want to test
     except Exception as e:
         handle_exception(e, DataIngestionError)
 
-# if __name__ == "__main__":
-#     try:
-#         my_func(23)
-#     except Exception as e:
-#         handle_exception(e, DataIngestionError)
