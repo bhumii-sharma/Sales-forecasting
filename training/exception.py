@@ -15,7 +15,7 @@ def handle_exception(error, error_type):
     error_logger.error("\n\n")  # To leave a few blank lines
 
     # Print only the formatted message to the console
-    print(f"{error_type._name}: {error.class.name_}: {error}")
+    print(f"{error_type.__name__}: {error.__class__.__name__}: {error}")
 
 
 
@@ -46,7 +46,7 @@ class ModelEvaluationError(PipelineError):
     pass
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     try:
         my_func(23)
     except Exception as e:
