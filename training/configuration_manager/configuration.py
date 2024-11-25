@@ -39,7 +39,7 @@ class ConfigurationManager:
 
         data_validation_config = DataValidationConfig(
             root_dir= config.root_dir,
-            source= config.source,
+            data_dir= config.source,
             STATUS_FILE= config.STATUS_FILE
         )
 
