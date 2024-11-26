@@ -13,3 +13,6 @@ FEATURES_DATA_TYPES:
   Item_Outlet_Sales: float64
   Outlet_Location_Type: object
   Outlet_Establishment_Year: int64
+
+Target_column:
+   target_column_name:Item_Outlet_Sales  

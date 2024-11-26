@@ -8,23 +8,35 @@ from training.entity.config_entity import CrossValConfig
 
 import os
 
-class CrossValConfig:
-    """
-    Configuration class for managing K-Fold Cross-Validation settings and paths.
-    """
-    def __init__(self, root_dir, extracted_features, model_cache_rf, train_data_path, 
-                 test_data_path, model_name, STATUS_FILE, metric_file_name_rf, 
-                 best_model_params_rf, k_folds=5):
-        self.root_dir = root_dir
-        self.extracted_features = extracted_features
-        self.model_cache_rf = model_cache_rf
-        self.train_data_path = train_data_path
-        self.test_data_path = test_data_path
-        self.model_name = model_name
-        self.STATUS_FILE = STATUS_FILE
-        self.metric_file_name_rf = metric_file_name_rf
-        self.best_model_params_rf = best_model_params_rf
-        self.k_folds = k_folds
+        create_directories([self.config.artifacts_root])
+#1
+    def get_data_ingestion_config(self) -> DataIngestionConfig:
+        config = self.config.data_ingestion
+        
+
+        create_directories([config.root_dir])
+        
+        data_ingestion_config = DataIngestionConfig(
+            root_dir=config.root_dir,
+            source=config.source,
+            data_dir=config.data_dir,
+            STATUS_FILE=config.STATUS_FILE
+        )
+        return data_ingestion_config
+#2    
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config= self.config.data_validation
+        #schema = self.schema.COLUMNS - Not needed
+
+        create_directories([config.root_dir])
+
+        data_validation_config = DataValidationConfig(
+            root_dir= config.root_dir,
+            data_dir= config.source,
+            STATUS_FILE= config.STATUS_FILE
+        )
+
+        return data_validation_config
 
 
 def create_directories(directories):
