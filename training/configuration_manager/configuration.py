@@ -8,7 +8,7 @@ from training.entity.config_entity import CrossValConfig
 
 import os
 
-        create_directories([self.config.artifacts_root])
+    create_directories([self.config.artifacts_root])
 #1
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
@@ -39,24 +39,24 @@ import os
         return data_validation_config
 
 
-def create_directories(directories):
-    """
-    Creates directories if they don't already exist.
-    :param directories: List of directory paths to create.
-    """
-    for directory in directories:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-            print(f"Created directory: {directory}")
+     def create_directories(directories):
+          """
+         Creates directories if they don't already exist.
+         :param directories: List of directory paths to create.
+         """
+        for directory in directories:
+            if not os.path.exists(directory):
+              os.makedirs(directory)
+              print(f"Created directory: {directory}")
 
 
-def get_cross_val_config(config) -> CrossValConfig:
-    """
-    Retrieves the cross-validation configuration, creates required directories, and sets up paths for K-Fold Cross-Validation.
+    def get_cross_val_config(config) -> CrossValConfig:
+        """
+        Retrieves the cross-validation configuration, creates required directories, and sets up paths for K-Fold Cross-Validation.
 
-    :param config: The base configuration object containing paths and parameters.
-    :return: CrossValConfig object containing configuration for K-Fold cross-validation.
-    """
+         :param config: The base configuration object containing paths and parameters.
+        :return: CrossValConfig object containing configuration for K-Fold cross-validation.
+        """
     # Create required directories for cross-validation
     create_directories([config.root_dir])
     create_directories([config.extracted_features, config.model_cache_rf])
