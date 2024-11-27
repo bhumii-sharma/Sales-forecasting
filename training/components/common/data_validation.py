@@ -99,7 +99,7 @@ class DataValidation:
 
 # To check the component
 if __name__ == "__main__":
-    config_manager = ConfigurationManager()
+    config_manager = ConfigManager()
     data_validation_config = config_manager.get_data_validation_config()
 
     data_validation = DataValidation(data_validation_config)
