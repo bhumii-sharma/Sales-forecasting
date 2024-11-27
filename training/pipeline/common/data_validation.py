@@ -11,7 +11,7 @@ class DataValidationPipeline:
 
     def main(self):
         # Load the data validation configuration object
-        config = ConfigurationManager()
+        config = ConfigManager()
         data_validation_config = config.get_data_validation_config()
 
         # Passing the data validation configuration object to the component
