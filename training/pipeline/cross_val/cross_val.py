@@ -1,4 +1,4 @@
-from training.configuration_manager.configuration import ConfigurationManager
+from training.configuration_manager.configuration import ConfigManager
 from training.components.cross_val.cross_val import CrossValidation  # Updated import to match the new class
 from training.custom_logging import info_logger
 import sys

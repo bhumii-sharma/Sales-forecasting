@@ -1,4 +1,4 @@
-from training.configuration_manager.configuration import ConfigurationManager
+from training.configuration_manager.configuration import ConfigManager
 from training.components.common.data_ingestion import DataIngestion
 from training.custom_logging import info_logger
 import sys

@@ -6,7 +6,7 @@ from sklearn.metrics import classification_report
 from training.exception import ModelEvaluationError, handle_exception
 from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import ModelEvaluationConfig
-from training.configuration_manager.configuration import ConfigurationManager
+from training.configuration_manager.configuration import ConfigManager
 
 class ModelEvaluation:
     def _init_(self, config: ModelEvaluationConfig):

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from training.entity.config_entity import DataValidationConfig
-from training.configuration_manager.configuration import ConfigurationManager
+from training.configuration_manager.configuration import ConfigManager
 from training.exception import DataValidationError, handle_exception
 from training.custom_logging import info_logger, error_logger
 
