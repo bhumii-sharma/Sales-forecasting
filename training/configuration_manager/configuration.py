@@ -8,6 +8,18 @@ from training.entity.config_entity import (
     ModelEvaluationConfig,
     CrossValConfig,
 )
+from training.configuration_manager.configuration import ConfigurationManager
+from training.components.common.data_ingestion import ConfigManager
+
+# Initialize the configuration manager
+configuration_manager = ConfigurationManager()
+
+# Get the configuration object from ConfigurationManager
+config = configuration_manager.get_config()
+
+# Pass the configuration object to ConfigManager
+config_manager = ConfigManager(config)
+
 
 
 def create_directories(directories):
@@ -21,18 +33,22 @@ def create_directories(directories):
             print(f"Created directory: {directory}")
 
 
-class ConfigManager:
-    """
-    Configuration Manager to handle different configurations for data ingestion,
-    validation, feature engineering, training, and evaluation.
-    """
+class ConfigurationManager:
+    def __init__(self):
+        # Load the config from a YAML file or define it here
+        self.config = self.load_config()
 
-    def __init__(self, config):
-        """
-        Initialize with a config object.
-        :param config: Configuration object containing paths and parameters.
-        """
-        self.config = config
+    def load_config(self):
+        # Assume the config is stored in a YAML file named 'config.yaml'
+        import yaml
+        with open('config.yaml', 'r') as file:
+            config = yaml.safe_load(file)
+        return config
+
+    def get_config(self):
+        return self.config
+
+
 
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         """
