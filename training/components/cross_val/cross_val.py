@@ -2,6 +2,12 @@ import os
 import json
 from joblib import dump
 from sklearn.metrics import classification_report
+from training.exception import DataIngestionError, handle_exception
+from training.custom_logging import info_logger, error_logger
+from training.entity.config_entity import DataIngestionConfig
+from training.configuration_manager.configuration import ConfigurationManager
+import numpy as np
+
 
 class CrossValidation:
     def __init__(self, config: CrossValConfig):
@@ -15,9 +21,11 @@ class CrossValidation:
             if not os.path.exists(self.config.test_data_path):
                 os.makedirs(self.config.test_data_path)
 
-            # Save X_train, y_train and groups_train to train.npz
-            np.savez(os.path.join(self.config.train_data_path, 'Train.npz'), X_train=X_train, y_train=y_train, groups_train=groups_train)
-            np.savez(os.path.join(self.config.test_data_path, 'Test.npz'), X_test=X_test, y_test=y_test)
+            # Save X_train, y_train, and groups_train to train.npz
+            np.savez(os.path.join(self.config.train_data_path, 'Train.npz'),
+                     X_train=X_train, y_train=y_train, groups_train=groups_train)
+            np.savez(os.path.join(self.config.test_data_path, 'Test.npz'),
+                     X_test=X_test, y_test=y_test)
 
             info_logger.info(f"Train.npz and Test.npz saved at {self.config.train_data_path} and {self.config.test_data_path}")
         except Exception as e:
