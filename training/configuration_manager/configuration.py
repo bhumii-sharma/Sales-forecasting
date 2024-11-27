@@ -6,7 +6,7 @@ from training.entity.config_entity import (
     FeatureEngineeringConfig,
     ModelTrainerConfig,
     ModelEvaluationConfig,
-    CrossValConfig
+    CrossValConfig,
 )
 
 
