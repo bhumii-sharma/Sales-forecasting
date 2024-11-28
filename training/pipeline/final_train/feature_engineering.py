@@ -23,7 +23,7 @@ class FeatureEngineeringTrainingPipeline:
         # Save the transformed data if it does not exist
         feature_engineering.save_transformed_data(X_train, X_test, y_train, y_test, groups_train)
         
-if _name_ == "_main_":
+if __name__ == "__main__":
     info_logger.info(f">>>>> {PIPELINE} started <<<<")
     obj = FeatureEngineeringTrainingPipeline()
     obj.main()
