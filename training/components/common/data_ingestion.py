@@ -3,7 +3,7 @@ import shutil
 from training.exception import DataIngestionError, handle_exception
 from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import DataIngestionConfig
-from training.configuration_manager.configuration import ConfigManager
+from training.configuration_manager.configuration import ConfigurationManager
 
 
 class DataIngestion:

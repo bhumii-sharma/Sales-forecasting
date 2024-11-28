@@ -1,4 +1,4 @@
-from training.configuration_manager.configuration import ConfigManager
+from training.configuration_manager.configuration import ConfigurationManager
 from training.components.common.data_validation import DataValidation
 from training.custom_logging import info_logger
 import sys
@@ -11,7 +11,7 @@ class DataValidationPipeline:
 
     def main(self):
         # Load the data validation configuration object
-        config = ConfigManager()
+        config = ConfigurationManager()
         data_validation_config = config.get_data_validation_config()
 
         # Passing the data validation configuration object to the component

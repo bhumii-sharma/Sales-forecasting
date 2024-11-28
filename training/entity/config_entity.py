@@ -12,7 +12,7 @@ class DataIngestionConfig:
 @dataclass(frozen=True)
 class DataValidationConfig:
     root_dir: Path
-    source: Path
+    data_dir: Path
     STATUS_FILE: str
 
 #3

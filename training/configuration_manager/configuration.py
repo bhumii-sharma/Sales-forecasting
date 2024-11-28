@@ -8,46 +8,20 @@ from training.entity.config_entity import (
     ModelEvaluationConfig,
     CrossValConfig,
 )
-from training.configuration_manager.configuration import ConfigurationManager
-from training.components.common.data_ingestion import ConfigManager
 
-# Initialize the configuration manager
-configuration_manager = ConfigurationManager()
-
-# Get the configuration object from ConfigurationManager
-config = configuration_manager.get_config()
-
-# Pass the configuration object to ConfigManager
-config_manager = ConfigManager(config)
-
-
-
-def create_directories(directories):
-    """
-    Creates directories if they don't already exist.
-    :param directories: List of directory paths to create.
-    """
-    for directory in directories:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-            print(f"Created directory: {directory}")
+from training.utils.common import *
 
 
 class ConfigurationManager:
-    def __init__(self):
-        # Load the config from a YAML file or define it here
-        self.config = self.load_config()
+    def __init__(
+            self,
+            config_filepath = CONFIG_FILE_PATH,
+            schema_filepath = SCHEMA_FILE_PATH) :
+        
+        self.config = read_yaml(config_filepath)
+        self.schema = read_yaml(schema_filepath)
 
-    def load_config(self):
-        # Assume the config is stored in a YAML file named 'config.yaml'
-        import yaml
-        with open('config.yaml', 'r') as file:
-            config = yaml.safe_load(file)
-        return config
-
-    def get_config(self):
-        return self.config
-
+        create_directories([self.config.artifacts_root])
 
 
     def get_data_ingestion_config(self) -> DataIngestionConfig:
@@ -76,7 +50,7 @@ class ConfigurationManager:
 
         data_validation_config = DataValidationConfig(
             root_dir=config.root_dir,
-            data_dir=config.source,
+            data_dir=config.data_dir,
             STATUS_FILE=config.STATUS_FILE
         )
         return data_validation_config
@@ -137,14 +111,13 @@ class ConfigurationManager:
 
         # Create required directories for cross-validation
         create_directories([config.root_dir])
-        create_directories([config.extracted_features, config.model_cache_rf])
-        create_directories([config.train_data_path, config.test_data_path])
+        
+        create_directories([config., config.test_data_path])
         create_directories([config.metric_file_name_rf, config.best_model_params_rf])
 
         # Configure for K-Fold Cross-Validation
         cross_val_config = CrossValConfig(
             root_dir=config.root_dir,
-            extracted_features=config.extracted_features,
             model_cache_rf=config.model_cache_rf,
             train_data_path=config.train_data_path,
             test_data_path=config.test_data_path,

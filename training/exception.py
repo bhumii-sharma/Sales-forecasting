@@ -23,8 +23,8 @@ def handle_exception(error, error_type):
 # Base custom exception
 class PipelineError(Exception):
     """Base class for custom pipeline exceptions"""
-    def _init_(self, original_exception):
-        super()._init_(str(original_exception))
+    def __init__(self, original_exception):
+        super().__init__(str(original_exception))
         self.original_exception = original_exception
 
 # Specific pipeline exceptions
