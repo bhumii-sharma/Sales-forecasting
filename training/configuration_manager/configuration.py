@@ -65,7 +65,9 @@ class ConfigurationManager:
 
         feature_engineering_config = FeatureEngineeringConfig(
             root_dir=config.root_dir,
-            pipeline_path=config.pipeline_path,
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,
+           # pipeline_path=config.pipeline_path,
             STATUS_FILE=config.STATUS_FILE
         )
         return feature_engineering_config

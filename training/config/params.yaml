@@ -1,31 +1,31 @@
 cross_val:
-  root_dir: artifacts/cross_val
+  root_dir: artifacts/cross_val  # Root directory for cross-validation
   kfold_models_rf:
-    path: artifacts/cross_val/kfold_models/random_forest
+    path: artifacts/cross_val/kfold_models/random_forest  # Path to save Random Forest models
     model_files:
       - model_fold_1.joblib
       - model_fold_2.joblib
-      # Add more folds as needed
       - best_model.joblib  # Final best model after evaluating all folds
     metrics:
-      path: artifacts/cross_val/kfold_models/random_forest/metrics
+      path: artifacts/cross_val/kfold_models/random_forest/metrics  # Path to save metrics
       files:
         - metrics_fold_1.json
         - metrics_fold_2.json
         # Add more entries as needed for additional folds
     tuned_params:
-      path: artifacts/cross_val/kfold_models/random_forest/tuned_params
+      path: artifacts/cross_val/kfold_models/random_forest/tuned_params  # Path to save tuned parameters
       files:
         - tuned_params_fold_1.json
         - tuned_params_fold_2.json
         # Add more entries as needed for additional folds
-  model_cache_rf: artifacts/cross_val/model_cache_rf
-  data_for_final_train:
-    Train: artifacts/cross_val/data_for_final_train/Train.npz
-    Test: artifacts/cross_val/data_for_final_train/Test.npz
-  STATUS_FILE: artifacts/cross_val/status.txt
 
-# General settings for K-Fold
+  model_cache_rf: artifacts/cross_val/model_cache_rf  # Path to cache Random Forest models
+  data_for_final_train:
+    Train: artifacts/cross_val/data_for_final_train/Train.npz  # Path to training data for final model
+    Test: artifacts/cross_val/data_for_final_train/Test.npz  # Path to test data for final model
+  STATUS_FILE: artifacts/cross_val/status.txt  # Status file to track cross-validation progress
+
+# General settings for K-Fold cross-validation
 kfold:
   n_splits: 5  # Number of splits for K-Fold
   shuffle: true  # Shuffle data before splitting
@@ -41,11 +41,11 @@ random_forest:
 
 # Training data paths
 data:
-  train_path: data/train.csv
-  test_path: data/test.csv
+  train_path: data/train.csv  # Path to training dataset
+  test_path: data/test.csv  # Path to test dataset
   label_column: target  # Name of the label/target column in your dataset
 
 # Logging configuration
 logging:
   log_level: INFO  # Set to DEBUG, INFO, WARN, ERROR as needed
-  log_file: logs/cross_val_pipeline.log
+  log_file: logs/cross_val_pipeline.log  # Path to the log file

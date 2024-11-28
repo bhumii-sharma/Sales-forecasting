@@ -6,7 +6,7 @@ import sys
 PIPELINE = "Feature Engineering Training Pipeline"
 
 class FeatureEngineeringTrainingPipeline:
-    def _init_(self):
+    def __init__(self):
         pass
 
     def main(self):
@@ -26,5 +26,5 @@ class FeatureEngineeringTrainingPipeline:
 if __name__ == "__main__":
     info_logger.info(f">>>>> {PIPELINE} started <<<<")
     obj = FeatureEngineeringTrainingPipeline()
-    obj.main()
+    # obj.main()
     info_logger.info(f">>>>>>> {PIPELINE} completed <<<<<<<<")

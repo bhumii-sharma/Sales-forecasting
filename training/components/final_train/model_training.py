@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from training.exception import ModelTrainingError, handle_exception
 from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import ModelTrainerConfig
-from training.configuration_manager.configuration import ConfigManager
+from training.configuration_manager.configuration import ConfigurationManager
 
 class ModelTraining:
     def init(self, config: ModelTrainerConfig) -> None:
