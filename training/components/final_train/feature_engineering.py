@@ -11,39 +11,13 @@ from sklearn.compose import ColumnTransformer
 from training.exception import FeatureEngineeringError, handle_exception
 from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import FeatureEngineeringConfig
-from training.configuration_manager.configuration import ConfigManager
-
+from training.configuration_manager.configuration import ConfigurationManager
 
 class FeatureEngineering:
-    def _init_(self, config: FeatureEngineeringConfig):
+    def __init__(self, config: FeatureEngineeringConfig):
         self.config = config
 
-    def load_and_preprocess_data(self):
-        """
-        Load and preprocess the dataset from a CSV file.
-        """
-        try:
-            info_logger.info(f"Loading data from CSV: {self.config.csv_path}")
-            df = pd.read_csv(self.config.csv_path)
 
-            # Drop irrelevant columns (e.g., Item_Identifier)
-            if "Item_Identifier" in df.columns:
-                df.drop("Item_Identifier", axis=1, inplace=True)
-                info_logger.info("Dropped column: Item_Identifier")
-
-            # Handling missing values (example logic, replace with specific rules from notebook)
-            if df.isnull().sum().sum() > 0:
-                info_logger.info("Missing values detected. Imputing missing values.")
-                df.fillna(df.mean(), inplace=True)  # Replace with imputation logic from the notebook.
-
-            # Adding derived features (example logic, replace with actual logic)
-            if "Outlet_Establishment_Year" in df.columns:
-                df["Years_Operational"] = 2024 - df["Outlet_Establishment_Year"]
-
-            info_logger.info(f"Preprocessed data shape: {df.shape}")
-            return df
-        except Exception as e:
-            handle_exception(e, FeatureEngineeringError)
 
     def transform_features(self):
         """
