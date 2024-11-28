@@ -6,4 +6,6 @@ python-box
 ensure
 os
 boto3
+flask
+werkzeug.utils
 -e .
