@@ -112,7 +112,7 @@ class ConfigurationManager:
         # Create required directories for cross-validation
         create_directories([config.root_dir])
         
-        create_directories([config., config.test_data_path])
+        create_directories([config. config.test_data_path])
         create_directories([config.metric_file_name_rf, config.best_model_params_rf])
 
         # Configure for K-Fold Cross-Validation
