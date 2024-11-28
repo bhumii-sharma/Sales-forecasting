@@ -5,4 +5,5 @@ pyyaml
 python-box
 ensure
 os
+boto3
 -e .
