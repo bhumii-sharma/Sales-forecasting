@@ -7,7 +7,7 @@ from training.exception import CrossValError, handle_exception
 from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import CrossValConfig
 import numpy as np
-
+from sklearn.ensemble import RandomForestClassifier
 
 class CrossValidation:
     def __init__(self, config: CrossValConfig):
@@ -83,3 +83,71 @@ class CrossValidation:
             return True
         except (TypeError, OverflowError):
             return False
+
+
+if __name__ == "__main__":
+    try:
+        info_logger.info("Starting CrossValidation testing process...")
+
+        # Initialize the configuration with updated paths
+        config = CrossValConfig(
+            root_dir="artifacts/cross_val",
+            extracted_features="artifacts/cross_val/features",
+            random_search_models_rf={
+                'model_fold_1': 'artifacts/cross_val/kfold_models/random_forest/model_fold_1.joblib',
+                'model_fold_2': 'artifacts/cross_val/kfold_models/random_forest/model_fold_2.joblib',
+                'best_model': 'artifacts/cross_val/kfold_models/random_forest/best_model.joblib',
+                'metrics': {
+                    'fold_1': 'artifacts/cross_val/kfold_models/random_forest/metrics/metrics_fold_1.json',
+                    'fold_2': 'artifacts/cross_val/kfold_models/random_forest/metrics/metrics_fold_2.json',
+                },
+                'best_model_params': {
+                    'fold_1': 'artifacts/cross_val/kfold_models/random_forest/tuned_params/tuned_params_fold_1.json',
+                    'fold_2': 'artifacts/cross_val/kfold_models/random_forest/tuned_params/tuned_params_fold_2.json',
+                },
+            },
+            model_cache_rf="artifacts/cross_val/model_cache_rf",
+            train_data_path={
+                'train': 'artifacts/cross_val/data_for_final_train/Train.npz',
+            },
+            test_data_path={
+                'test': 'artifacts/cross_val/data_for_final_train/Test.npz',
+            },
+            model_name="random_forest",
+            STATUS_FILE="artifacts/cross_val/status.txt",
+            metric_file_name_rf="artifacts/cross_val/kfold_models/random_forest/metrics.json",
+            best_model_params_rf="artifacts/cross_val/kfold_models/random_forest/tuned_params.json",
+        )
+
+        # Initialize CrossValidation class
+        cross_validation = CrossValidation(config=config)
+
+        # Mock data for testing
+        X_train = np.random.rand(100, 10)
+        X_test = np.random.rand(20, 10)
+        y_train = np.random.randint(0, 2, 100)
+        y_test = np.random.randint(0, 2, 20)
+        groups_train = np.random.randint(0, 5, 100)
+        model = RandomForestClassifier(n_estimators=10, random_state=42)
+
+        # Test individual methods
+        info_logger.info("Testing save_train_test_data_for_final_train...")
+        cross_validation.save_train_test_data_for_final_train(X_train, X_test, y_train, y_test, groups_train)
+
+        info_logger.info("Testing save_model...")
+        cross_validation.save_model(model, fold_number=1)
+
+        info_logger.info("Testing save_best_model...")
+        cross_validation.save_best_model(model)
+
+        info_logger.info("Testing save_metrics...")
+        cross_validation.save_metrics({"accuracy": 0.95}, fold_number=1)
+
+        info_logger.info("Testing save_best_model_params...")
+        cross_validation.save_best_model_params(model, fold_number=1)
+
+        info_logger.info("CrossValidation testing completed successfully.")
+
+    except Exception as e:
+        error_logger.error("An error occurred during CrossValidation testing.")
+        handle_exception(e, CrossValError)
