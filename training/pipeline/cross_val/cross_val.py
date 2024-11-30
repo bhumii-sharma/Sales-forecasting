@@ -1,5 +1,5 @@
 from training.configuration_manager.configuration import ConfigurationManager
-from training.components.cross_val.cross_val import CrossVal  # Import CrossVal instead of NestedCrossVal
+from training.components.cross_val.cross_val import CrossValidation  # Import CrossVal instead of NestedCrossVal
 from training.custom_logging import info_logger
 from training.exception import CrossValError, handle_exception
 import sys
@@ -20,7 +20,7 @@ class CrossValPipeline:
             cross_val_config = config.get_cross_val_config()  # Updated to load cross_val config
 
             # Pass the data ingestion configuration obj to the CrossVal component
-            cross_val = CrossVal(config=cross_val_config)
+            cross_val = CrossValidation(config=cross_val_config)
 
             # Loading the extracted features, labels, and groups
             X, y, groups = cross_val.get_data_labels_groups()
@@ -63,7 +63,7 @@ class CrossValPipeline:
         
         except Exception as e:
             info_logger.error(f"An error occurred during the {PIPELINE}.")
-            handle_exception(e)  # You can define the error handling function as needed
+            handle_exception(e, CrossValError)  # You can define the error handling function as needed
 
 if __name__ == "__main__":
     try:

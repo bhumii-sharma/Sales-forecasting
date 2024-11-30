@@ -4,13 +4,7 @@ scikit-learn
 pyyaml
 python-box
 ensure
-os
 boto3
 flask
-<<<<<<< HEAD
-werkzeug.utils
-sklearn-ensemble
-=======
->>>>>>> a53c1e5699d49c45c17cb83d952762c0c4018633
 joblib
 -e .
