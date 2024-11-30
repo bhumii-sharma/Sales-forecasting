@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\Sale_forcasting\Sales-forecasting\forcast
+set VIRTUAL_ENV=D:\SALE\Sales-forecasting\forcast
 
 if not defined PROMPT set PROMPT=$P$G
 
