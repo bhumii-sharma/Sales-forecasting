@@ -9,25 +9,33 @@ import os
 
 PIPELINE = "Data Ingestion Training Pipeline"
 info_logger.info(f">>>>> {PIPELINE} started <<<<")
-data_ingestion = DataIngestionPipeline()
-data_ingestion.main()
-info_logger.info(f">>>>>>>> {PIPELINE} completed <<<<<<<<<")
+try:
+    data_ingestion = DataIngestionPipeline()
+    data_ingestion.main()
+except Exception as e:
+    info_logger.error(f"Pipeline execution failed: {e}")
+    info_logger.info(f">>>>> {PIPELINE} completed <<<<")
 
 
 
-PIPELINE = "Data Validition Training Pipeline"
+PIPELINE = "Data Validation Training Pipeline"
 info_logger.info(f">>>>>>>> {PIPELINE} started <<<<<<<<<")
-data_validation = DataValidationPipeline()
-data_validation.main()
-info_logger.info(f">>>>>>>> {PIPELINE} completed <<<<<<<<<")
-
+try:
+    data_validation = DataValidationPipeline()
+    data_validation.main()
+except Exception as e:
+    info_logger.error(f"Pipeline execution failed: {e}")
+    info_logger.info(f">>>>>>>> {PIPELINE} completed <<<<<<<<<")
 
 
 PIPELINE = "Cross Validition Training Pipeline"
-info_logger.info(f">>>>> {PIPELINE} started <<<<")
-cross_val = CrossValPipeline()
-cross_val.main()
-info_logger.info(f">>>>>>>> {PIPELINE} completed <<<<<<<<<")
+try:
+    info_logger.info(f">>>>> {PIPELINE} started <<<<")
+    cross_val = CrossValPipeline()
+    cross_val.main()
+    info_logger.info(f">>>>> {PIPELINE} completed <<<<")
+except Exception as e:
+        info_logger.error(f"Pipeline failed: {e}")
 
 
 
