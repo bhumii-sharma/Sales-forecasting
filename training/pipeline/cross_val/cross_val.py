@@ -11,6 +11,7 @@ from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import DataIngestionConfig
 from training.configuration_manager.configuration import ConfigurationManager
 
+
 class CrossValidation:
     def __init__(self, config):
         self.config = config
@@ -105,3 +106,51 @@ class CrossValidation:
 
         # Perform K-Fold training and save models
         self.train_kfold_models(X_train, y_train)
+
+
+  
+
+
+## Checking the code 
+
+class Config:
+    """
+    Configuration class to provide paths and parameters for the CrossValidation pipeline.
+    """
+    def __init__(self):
+        # Set paths and other configuration parameters
+        self.data_file = "data/dataset.npz"  # Path to the .npz file containing 'X' and 'y'
+        self.k_folds = 5  # Number of K-Folds
+        self.root_dir = "artifacts/cross_val"  # Root directory for saving outputs
+        self.train_data_path = "artifacts/cross_val/Train.npz"  # Path to save train data
+        self.test_data_path = "artifacts/cross_val/Test.npz"  # Path to save test data
+        self.model_cache_rf = "artifacts/cross_val/models/fold_{fold}_model.joblib"  # Model cache format
+        self.metric_file_name_rf = "artifacts/cross_val/metrics.json"  # Path to save metrics
+
+
+def test_cross_validation_initialization():
+    """
+    Test the CrossValidation class initialization and basic attribute setup.
+    """
+    try:
+        # Step 1: Initialize the configuration
+        config = Config()
+
+        # Step 2: Create CrossValidation instance
+        cross_validation = CrossValidation(config)
+
+        # Log the initialization details
+        info_logger.info("CrossValidation class initialized successfully.")
+        info_logger.info(f"Data File: {cross_validation.config.data_file}")
+        info_logger.info(f"Root Directory: {cross_validation.config.root_dir}")
+        info_logger.info(f"Train Data Path: {cross_validation.config.train_data_path}")
+        info_logger.info(f"Test Data Path: {cross_validation.config.test_data_path}")
+        info_logger.info(f"K-Folds: {cross_validation.config.k_folds}")
+        info_logger.info(f"Model Cache Path: {cross_validation.config.model_cache_rf}")
+
+    except Exception as e:
+        info_logger.error(f"An error occurred during testing: {e}")
+
+
+if __name__ == "__main__":
+    test_cross_validation_initialization()

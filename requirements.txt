@@ -8,4 +8,5 @@ os
 boto3
 flask
 werkzeug.utils
+joblib
 -e .

@@ -32,14 +32,18 @@ cross_val:
 
 
 model_trainer:
-  root_dir: artifacts/model_trainer  # Root directory for model trainer artifacts
-  train_data_path: artifacts/cross_val/train_data.npz  # Train data path from cross-validation
-  test_data_path: artifacts/cross_val/test_data.npz  # Test data path from cross-validation
-  final_model_name: artifacts/model_trainer/final_model.joblib  # Final trained model file
-  metric_file_name_rf: artifacts/cross_val/metrics.json  # Metrics for K-Fold cross-validation
-  best_model_params_rf: artifacts/cross_val/best_model_params.json  # Best model parameters from K-Fold
-  STATUS_FILE: artifacts/model_trainer/status.txt  # Status file for training process
-
+  root_dir: artifacts/model_trainer
+  train_data_path: artifacts/cross_val/data_for_final_train/train.npz
+  test_data_path: artifacts/cross_val/data_for_final_train/test.npz
+  final_model_name: artifacts/model_trainer/final_model.joblib
+  metric_file_name_rf: artifacts/cross_val/metrics.json
+  saved_models_dir: artifacts/saved_models
+  hyperparameters:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+  best_model_params_rf: artifacts/cross_val/best_model_params.json
+  STATUS_FILE: artifacts/model_trainer/status.txt
 
 model_evaluation:
   root_dir: artifacts/model_evaluation  # Root directory for evaluation artifacts

@@ -30,15 +30,21 @@ class ModelTrainerConfig:
     root_dir: Path
     train_data_path: Path
     test_data_path: Path
-    #best_cross_val_models_rf: Path
     final_model_name: str
     metric_file_name_rf: Path
     best_model_params_rf: Path
+    saved_models_dir: Path  # Correct this field name (was 'saved_model_dir' in the original)
     STATUS_FILE: str
-    #Hyperparameters
-    #alpha: float
-    #l1_ratio: float
-    #target_column: str
+    hyperparameters: dict 
+    n_estimators: int
+    max_depth: int
+    random_state: int
+
+   
+    # Hyperparameters
+    # alpha: float
+    # l1_ratio: float
+    # target_column: str
 #5
 @dataclass(frozen=True)
 class ModelEvaluationConfig:

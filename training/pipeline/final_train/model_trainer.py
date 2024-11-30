@@ -2,9 +2,14 @@ import joblib
 import json
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
+import logging
+from training.configuration_manager.configuration import ConfigurationManager
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class ModelTrainer:
-    def _init_(self, config):
+    def __init__(self, config):
         self.config = config
 
     def load_train_test_data(self):
@@ -19,8 +24,8 @@ class ModelTrainer:
         # Load train and test data
         X_train, y_train, X_test, y_test = self.load_train_test_data()
 
-        # Initialize model
-        model = RandomForestRegressor(random_state=42)
+        # Initialize model with hyperparameters
+        model = RandomForestRegressor(**self.config.hyperparameters)
 
         # Train the model
         model.fit(X_train, y_train)
@@ -42,3 +47,32 @@ class ModelTrainer:
         with open(self.config.metric_file_name_rf, 'w') as f:
             json.dump(metrics, f)
         print(f"Metrics saved to {self.config.metric_file_name_rf}")
+
+  
+
+PIPELINE = "Model Trainer Pipeline"
+
+def main():
+    try:
+        logger.info(f"Starting {PIPELINE}...")
+
+        # Initialize the configuration manager
+        config_manager = ConfigurationManager()
+
+        # Get the model training configuration
+        model_trainer_config = config_manager.get_model_trainer_config()
+
+        # Initialize the ModelTrainer class with the configuration
+        model_trainer = ModelTrainer(config=model_trainer_config)
+
+        # Train the model and save it along with metrics
+        logger.info("Training the model...")
+        model_trainer.train_and_save_model()
+
+        logger.info(f"{PIPELINE} completed successfully.")
+
+    except Exception as e:
+        logger.error(f"An error occurred in {PIPELINE}: {str(e)}")
+
+if __name__ == "__main__":
+    main()

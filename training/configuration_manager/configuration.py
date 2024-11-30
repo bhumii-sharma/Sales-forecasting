@@ -13,14 +13,9 @@ from training.utils.common import *
 
 
 class ConfigurationManager:
-    def __init__(
-            self,
-            config_filepath = CONFIG_FILE_PATH,
-            schema_filepath = SCHEMA_FILE_PATH) :
-        
+    def __init__(self, config_filepath=CONFIG_FILE_PATH, schema_filepath=SCHEMA_FILE_PATH):
         self.config = read_yaml(config_filepath)
         self.schema = read_yaml(schema_filepath)
-
         create_directories([self.config.artifacts_root])
 
 
@@ -78,13 +73,20 @@ class ConfigurationManager:
         :return: ModelTrainerConfig object.
         """
         config = self.config.model_trainer
-        create_directories([config.root_dir, config.saved_models_dir])
+        create_directories([config.root_dir, config.saved_models_dir])  # Create saved models dir
 
         model_trainer_config = ModelTrainerConfig(
             root_dir=config.root_dir,
-            saved_models_dir=config.saved_models_dir,
-            hyperparameters=config.hyperparameters,
-            STATUS_FILE=config.STATUS_FILE
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,
+            final_model_name=config.final_model_name,
+            metric_file_name_rf=config.metric_file_name_rf,
+            saved_models_dir=config.saved_models_dir,  # Ensure this is correctly passed
+            best_model_params_rf=config.best_model_params_rf,
+            STATUS_FILE=config.STATUS_FILE,
+            n_estimators=config.hyperparameters['n_estimators'],
+            max_depth=config.hyperparameters['max_depth'],
+            random_state=config.hyperparameters['random_state']
         )
         return model_trainer_config
 

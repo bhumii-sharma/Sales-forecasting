@@ -174,15 +174,15 @@ class ModelTraining:
         except Exception as e:
             handle_exception(e, ModelTrainingError)
 
-    # @staticmethod
-    # def filter_hyperparams(params):
-    #     """
-    #     Filters the hyperparameters specific to the RandomForestClassifier.
-    #     Args:
-    #         params (dict): Hyperparameters dictionary
-    #     Returns:
-    #         dict: Filtered hyperparameters for RandomForestClassifier
-    #     """
-    #     # Extract only the parameters related to the classifier (RandomForestClassifier)
-    #     rf_hyperparams = {key.replace('classifier_', ''): value for key, value in params.items() if key.startswith('classifier_')}
-    #     return rf_hyperparams
+    @staticmethod
+    def filter_hyperparams(params):
+        """
+        Filters the hyperparameters specific to the RandomForestClassifier.
+        Args:
+            params (dict): Hyperparameters dictionary
+        Returns:
+            dict: Filtered hyperparameters for RandomForestClassifier
+        """
+        # Extract only the parameters related to the classifier (RandomForestClassifier)
+        rf_hyperparams = {key.replace('classifier_', ''): value for key, value in params.items() if key.startswith('classifier_')}
+        return rf_hyperparams
