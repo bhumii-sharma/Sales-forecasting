@@ -1,4 +1,16 @@
 pandas
 numpy
 scikit-learn
+pyyaml
+python-box
+ensure
+os
+boto3
+flask
+werkzeug.utils
+<<<<<<< HEAD
+=======
+sklearn-ensemble
+>>>>>>> 171415d1dd0b44f56863f7ade55ee7b3346e7ba6
+joblib
 -e .

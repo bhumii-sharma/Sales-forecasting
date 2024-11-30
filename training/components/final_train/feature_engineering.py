@@ -13,9 +13,8 @@ from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import FeatureEngineeringConfig
 from training.configuration_manager.configuration import ConfigurationManager
 
-
 class FeatureEngineering:
-    def _init_(self, config: FeatureEngineeringConfig):
+    def __init__(self, config: FeatureEngineeringConfig):
         self.config = config
 
     def load_and_preprocess_data(self):
@@ -23,8 +22,8 @@ class FeatureEngineering:
         Load and preprocess the dataset from a CSV file.
         """
         try:
-            info_logger.info(f"Loading data from CSV: {self.config.csv_path}")
-            df = pd.read_csv(self.config.csv_path)
+            info_logger.info(f"Loading data from CSV: {self.config.data}")
+            df = pd.read_csv(self.config.data)
 
             # Drop irrelevant columns (e.g., Item_Identifier)
             if "Item_Identifier" in df.columns:
@@ -113,3 +112,5 @@ class FeatureEngineering:
             info_logger.info("Transformed data saved successfully.")
         except Exception as e:
             handle_exception(e, FeatureEngineeringError)
+
+

@@ -14,8 +14,8 @@ class DataValidation:
         """
         Validates if the source file exists.
         """
-        if not os.path.exists(self.config.source):
-            raise FileNotFoundError(f"Source file not found at {self.config.source}")
+        if not os.path.exists(self.config.data_dir):
+            raise FileNotFoundError(f"Source file not found at {self.config.data_dir}")
 
     def validate_columns(self, df: pd.DataFrame):
         """
@@ -46,17 +46,17 @@ class DataValidation:
         Validates the data types of critical columns.
         """
         expected_types = {
-            "Item_Identifier": str,
+            "Item_Identifier": object,
             "Item_Weight": float,
-            "Item_Fat_Content": str,
+            "Item_Fat_Content": object,
             "Item_Visibility": float,
-            "Item_Type": str,
+            "Item_Type": object,
             "Item_MRP": float,
-            "Outlet_Identifier": str,
+            "Outlet_Identifier": object,
             "Outlet_Establishment_Year": int,
-            "Outlet_Size": str,
-            "Outlet_Location_Type": str,
-            "Outlet_Type": str,
+            "Outlet_Size": object,
+            "Outlet_Location_Type": object,
+            "Outlet_Type": object,
             "Item_Outlet_Sales": float,
         }
 
@@ -77,8 +77,8 @@ class DataValidation:
             self.validate_file_exists()
 
             # Load the dataset
-            df = pd.read_csv(self.config.source)
-            info_logger.info(f"Loaded data from {self.config.source} with shape {df.shape}.")
+            df = pd.read_csv(self.config.data_dir )
+            info_logger.info(f"Loaded data from {self.config.data_dir} with shape {df.shape}.")
 
             # Perform validations
             self.validate_columns(df)

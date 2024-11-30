@@ -12,7 +12,7 @@ from training.entity.config_entity import ModelTrainerConfig
 from training.configuration_manager.configuration import ConfigurationManager
 
 class ModelTraining:
-    def _init_(self, config: ModelTrainerConfig) -> None:
+    def init(self, config: ModelTrainerConfig) -> None:
         self.config = config
 
     def load_transformed_data(self):
@@ -185,4 +185,4 @@ class ModelTraining:
         """
         # Extract only the parameters related to the classifier (RandomForestClassifier)
         rf_hyperparams = {key.replace('classifier_', ''): value for key, value in params.items() if key.startswith('classifier_')}
-        return rf_hyperparams
+        return rf_hyperparams

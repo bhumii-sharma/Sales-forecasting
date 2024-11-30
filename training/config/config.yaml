@@ -8,7 +8,7 @@ data ingestion:
 
 data validation:
   root_dir: artifacts/data_validation
-  data_dir: artifacts/data_ingestion/train.csv
+  data_dir: artifacts/data_ingestion/train.csv/train.csv
   STATUS_FILE: artifacts/data_validation/status.txt  # status of data validation 
 
 
@@ -20,42 +20,36 @@ feature_engineering:
   test_data_path: artifacts/cross_val/data_for_final_train
   STATUS_FILE: artifacts/feature_engineering/status.txt
 
-# Will make changes
 cross_val:
   root_dir: artifacts/cross_val
-  random_search_models_rf: 
-    root: artifacts/cross_val/random_search_models/random_forest
-    model_fold_1: artifacts/cross_val/random_search_models/random_forest/model_fold_1.joblib
-    model_fold_2: artifacts/cross_val/random_search_models/random_forest/model_fold_2.joblib
-    best_model: artifacts/cross_val/random_search_models/random_forest/best_model.joblib
-    metrics:
-      fold_1: artifacts/cross_val/random_search_models/random_forest/metrics/metrics_fold_1.json
-      fold_2: artifacts/cross_val/random_search_models/random_forest/metrics/metrics_fold_2.json
-    best_model_params:
-      fold_1: artifacts/cross_val/random_search_models/random_forest/best_model_params/best_params_fold_1.json
-      fold_2: artifacts/cross_val/random_search_models/random_forest/best_model_params/best_params_fold_2.json
-  model_cache_rf: artifacts/cross_val/model_cache_rf
-  data_for_final_train: 
-    train: artifacts/cross_val/data_for_final_train/Train.npz
-    test: artifacts/cross_val/data_for_final_train/Test.npz
-  STATUS_FILE: artifacts/cross_val/status.txt
+  extracted_features: artifacts/cross_val/extracted_features  # Directory for extracted features
+  model_cache_rf: artifacts/cross_val/model_cache_rf  # Cache for models
+  train_data_path: artifacts/cross_val/train_data.npz  # Train data path
+  test_data_path: artifacts/cross_val/test_data.npz  # Test data path
+  metric_file_name_rf: artifacts/cross_val/metrics.json  # Metrics for K-Fold CV
+  best_model_params_rf: artifacts/cross_val/best_model_params.json  # Best parameters for K-Fold CV
+  STATUS_FILE: artifacts/cross_val/status.txt  # Status of cross-validation
 
 
-#Changes will need to be done for model_trainer and model_evaluation as we are doing a nested cross validation
 model_trainer:
   root_dir: artifacts/model_trainer
-  train_data_path: artifacts/feature_engineering
-  test_data_path: artifacts/feature_engineering
-  #best_cross_val_models_rf:  artifacts/cross_val/random_search_models/random_forest
+  train_data_path: artifacts/cross_val/data_for_final_train/train.npz
+  test_data_path: artifacts/cross_val/data_for_final_train/test.npz
   final_model_name: artifacts/model_trainer/final_model.joblib
-  metric_file_name_rf: artifacts/cross_val/random_search_models/random_forest/metrics
-  best_model_params_rf: artifacts/cross_val/random_search_models/random_forest/best_model_params
+  metric_file_name_rf: artifacts/cross_val/metrics.json
+  saved_models_dir: artifacts/saved_models
+  hyperparameters:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+  best_model_params_rf: artifacts/cross_val/best_model_params.json
   STATUS_FILE: artifacts/model_trainer/status.txt
 
 model_evaluation:
-  root_dir: artifacts/model_evaluation
-  test_data_path: artifacts/feature_engineering
-  model_path: artifacts/model_trainer/final_model.joblib
-  metric_file: artifacts/model_evaluation/metrics
-  STATUS_FILE: artifacts/model_evaluation/status.txt
+  root_dir: artifacts/model_evaluation  # Root directory for evaluation artifacts
+  test_data_path: artifacts/cross_val/test_data.npz  # Test data path from cross-validation
+  model_path: artifacts/model_trainer/final_model.joblib  # Final trained model path
+  metric_file: artifacts/model_evaluation/metrics.json  # Evaluation metrics file
+  STATUS_FILE: artifacts/model_evaluation/status.txt  # Status file for evaluation process
+
 
