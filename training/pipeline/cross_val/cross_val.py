@@ -1,12 +1,9 @@
 from training.configuration_manager.configuration import ConfigurationManager
-from training.components.cross_val.cross_val import CrossValidation  # Import CrossVal instead of NestedCrossVal
+from training.components.cross_val.cross_val import CrossValidation
 from training.custom_logging import info_logger
-from training.exception import CrossValError, handle_exception
-import sys
 import gc
-import numpy as np
 
-PIPELINE = "Cross Validation Training Pipeline"  # Updated pipeline name
+PIPELINE = "Cross Validation Training Pipeline"
 
 class CrossValPipeline:
 
@@ -15,61 +12,71 @@ class CrossValPipeline:
 
     def main(self):
         try:
-            # Load the data ingestion configuration object
-            config = ConfigurationManager()
-            cross_val_config = config.get_cross_val_config()  # Updated to load cross_val config
+            # Log the start of the pipeline
+            info_logger.info(f"Starting the {PIPELINE}...")
 
-            # Pass the data ingestion configuration obj to the CrossVal component
+            # Load the cross-validation configuration
+            config = ConfigurationManager()
+            cross_val_config = config.get_cross_val_config()
+
+            # Initialize the CrossValidation component
             cross_val = CrossValidation(config=cross_val_config)
 
-            # Loading the extracted features, labels, and groups
+            # Load features, labels, and groups
+            info_logger.info("Loading features, labels, and groups...")
             X, y, groups = cross_val.get_data_labels_groups()
 
-            # Split the data into train and test sets
+            # Split data into training and testing sets
+            info_logger.info("Splitting data into training and testing sets...")
             X_train, X_test, y_train, y_test, groups_train = cross_val.train_test_split(X, y, groups)
 
-            # Save X_train, X_test, y_train, y_test to be used by final_train
+            # Save train-test splits for final training
             cross_val.save_train_test_data_for_final_train(X_train, X_test, y_train, y_test, groups_train)
 
-            # Initialize cross-validation loop (no nested loop in this case)
-            cross_val_loop = cross_val.initialize_cross_val_loop()  # Updated to use cross_val_loop
+            # Initialize cross-validation loop
+            cross_val_loop = cross_val.initialize_cross_val_loop()
 
-            # The following loop runs based on the number of splits in cross_val_loop
+            # Perform cross-validation
             count = 1
             for train_idx, val_idx in cross_val_loop.split(X_train, y_train, groups=groups_train):
-                # Train data for the current fold
-                X_outer_train = X_train[train_idx]  # Training features
-                y_outer_train = y_train[train_idx]  # Training labels
-                groups_outer_train = groups_train[train_idx]  # Training groups
+                info_logger.info(f"Processing fold {count}...")
 
-                # Validation data for the current fold
-                X_outer_val = X_train[val_idx]  # Validation features
-                y_outer_val = y_train[val_idx]  # Validation labels
+                # Prepare training data for the current fold
+                X_fold_train = X_train[train_idx]
+                y_fold_train = y_train[train_idx]
+                groups_fold_train = groups_train[train_idx]
+
+                # Prepare validation data for the current fold
+                X_fold_val = X_train[val_idx]
+                y_fold_val = y_train[val_idx]
 
                 # Start training for the current fold
-                cross_val.start_training_loop(count, X_outer_train, y_outer_train, groups_outer_train, X_outer_val, y_outer_val)
-                
+                cross_val.start_training_loop(
+                    fold_number=count,
+                    X_train=X_fold_train,
+                    y_train=y_fold_train,
+                    groups_train=groups_fold_train,
+                    X_val=X_fold_val,
+                    y_val=y_fold_val
+                )
+
                 # Clean up to free memory
-                del X_outer_train
-                del y_outer_train
-                del groups_outer_train
-                del X_outer_val
-                del y_outer_val
+                del X_fold_train, y_fold_train, groups_fold_train, X_fold_val, y_fold_val
                 gc.collect()
-                
+                info_logger.info(f"Completed fold {count}.")
                 count += 1
 
-            info_logger.info(f">>>>> {PIPELINE} completed <<<<")
-        
+            info_logger.info(f"{PIPELINE} completed successfully.")
+
         except Exception as e:
-            info_logger.error(f"An error occurred during the {PIPELINE}.")
-            handle_exception(e, CrossValError)  # You can define the error handling function as needed
+            info_logger.error(f"An error occurred in the {PIPELINE}: {e}")
+            raise
 
 if __name__ == "__main__":
     try:
         info_logger.info(f">>>>> {PIPELINE} started <<<<")
         obj = CrossValPipeline()
         obj.main()
+        info_logger.info(f">>>>> {PIPELINE} completed <<<<")
     except Exception as e:
-        info_logger.error(f"An error occurred during the {PIPELINE}.")
-        handle_exception(e)
+        info_logger.error(f"Pipeline failed: {e}")
