@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\Sale_forcasting\Sales-forecasting\forcast"
+VIRTUAL_ENV="D:\Sales\Sales-forecasting\forcast"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
