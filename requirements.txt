@@ -8,4 +8,6 @@ os
 boto3
 flask
 werkzeug.utils
+sklearn-ensemble
+joblib
 -e .
