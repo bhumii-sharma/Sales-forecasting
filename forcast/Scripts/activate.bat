@@ -8,7 +8,11 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
+<<<<<<< HEAD
 set VIRTUAL_ENV=D:\Sales\Sales-forecasting\forcast
+=======
+set VIRTUAL_ENV=D:\SALE\Sales-forecasting\forcast
+>>>>>>> a53c1e5699d49c45c17cb83d952762c0c4018633
 
 if not defined PROMPT set PROMPT=$P$G
 
