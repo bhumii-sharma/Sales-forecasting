@@ -13,17 +13,19 @@ from training.custom_logging import info_logger, error_logger
 from training.entity.config_entity import FeatureEngineeringConfig
 from training.configuration_manager.configuration import ConfigurationManager
 
-class FeatureEngineering:
-    def __init__(self, config: FeatureEngineeringConfig):
-        self.config = config
+class FeatureEngineeringConfig:
+    def __init__(self, config):
+        self.train = config.get("train_data_path")
+        self.test = config.get("test_data_path")
+
 
     def load_and_preprocess_data(self):
         """
         Load and preprocess the dataset from a CSV file.
         """
         try:
-            info_logger.info(f"Loading data from CSV: {self.config.data}")
-            df = pd.read_csv(self.config.data)
+            info_logger.info(f"Loading data from CSV: {self.config.train.csv}")
+            df = pd.read_csv(self.config.train.csv)
 
             # Drop irrelevant columns (e.g., Item_Identifier)
             if "Item_Identifier" in df.columns:

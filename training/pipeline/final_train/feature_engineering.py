@@ -1,5 +1,5 @@
 from training.configuration_manager.configuration import ConfigurationManager
-from training.components.final_train.feature_engineering import FeatureEngineering
+from training.components.final_train.feature_engineering import FeatureEngineeringConfig
 from training.custom_logging import info_logger
 
 PIPELINE = "Feature Engineering Training Pipeline"

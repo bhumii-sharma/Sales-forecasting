@@ -1,4 +1,4 @@
-#!D:\Sales\Sales-forecasting\forcast\scripts\python.exe
+#!D:\SALE\Sales-forecasting\forcast\Scripts\python.exe
 
 import sys
 import json

@@ -6,12 +6,13 @@ import joblib
 from ensure import ensure_annotations
 from pathlib import Path
 from typing import Any
-from box import config_box
+import config_box
+from box import ConfigBox  # Example: using the python-box library
 from training.custom_logging import info_logger, error_logger
 
 
 @ensure_annotations
-def read_yaml(path_to_yaml: Path) -> config_box:
+def read_yaml(path_to_yaml: Path) -> ConfigBox:
     """
     Reads a yaml file and returns the content as a ConfigBox object.
     The ConfigBox is a special type of dictionary that allows you to use the keys as attributes.
@@ -21,7 +22,7 @@ def read_yaml(path_to_yaml: Path) -> config_box:
     with open(path_to_yaml) as yaml_file:
         content = yaml.safe_load(yaml_file) # This will be loaded as a dict
         info_logger.info(f"yaml file: {path_to_yaml} loaded successfully as {type(content)}")
-        return config_box(content) # converting the dict to ConfigBox to use the keys as attributes
+        return ConfigBox(content) # converting the dict to ConfigBox to use the keys as attributes
     
 
 @ensure_annotations
